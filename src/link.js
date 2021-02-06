@@ -6,7 +6,6 @@ import { IntlContextConsumer } from "./intl-context"
 const Link = ({ to, language, children, onClick, ...rest }) => (
   <IntlContextConsumer>
     {intl => {
-      console.log('+++', intl)
       
       // artt's edit
       let languageLink = language || intl.language
@@ -16,6 +15,7 @@ const Link = ({ to, language, children, onClick, ...rest }) => (
       //const languageLink = language || intl.language
 
       const link = intl.routed || language ? `/${languageLink}${to}` : `${to}`
+      console.log('---', languageLink, '+++', to)
 
       const handleClick = e => {
         if (language) {

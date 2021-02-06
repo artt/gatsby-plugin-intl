@@ -64,7 +64,7 @@ export const changeLocale = (language, to) => {
   if (typeof window === "undefined") {
     return
   }
-  const { routed } = window.___gatsbyIntl
+  const { defaultLanguage, routed } = window.___gatsbyIntl
 
   const removePrefix = pathname => {
     const base =

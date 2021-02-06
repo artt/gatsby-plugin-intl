@@ -94,14 +94,18 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
     }
   }
 
+  console.log('> ', page.path)
   if (dontTranslate.indexOf(page.path) > -1) {
     const newPage = generatePage(false, defaultLanguage, true)
+    console.log('----- creating new single-language page', newPage)
     deletePage(page)
     createPage(newPage)
     return
   }
+  
 
   const newPage = generatePage(false, defaultLanguage, false)
+  console.log('----- creating new bilingual page', newPage)
   deletePage(page)
   createPage(newPage)
 

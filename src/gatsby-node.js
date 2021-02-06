@@ -97,10 +97,6 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
   deletePage(page)
   createPage(newPage)
 
-  if (dontTranslate.indexOf(page.path) > -1) {
-    return
-  }
-
   languages.forEach(language => {
     if (!genDefaultLanguagePages && language === defaultLanguage)
       return

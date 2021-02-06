@@ -50,6 +50,7 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
     defaultLanguage = "en",
     redirect = false,
     dontTranslate = [],
+    genDefaultLanguagePages = false,
   } = pluginOptions
 
   const getMessages = (path, language) => {
@@ -95,6 +96,8 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
   const newPage = generatePage(false, defaultLanguage)
   deletePage(page)
   createPage(newPage)
+
+  console.log(page.path)
 
   languages.forEach(language => {
     if (!genDefaultLanguagePages && language === defaultLanguage)

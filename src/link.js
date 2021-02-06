@@ -15,7 +15,7 @@ const Link = ({ to, language, children, onClick, ...rest }) => (
       //const languageLink = language || intl.language
 
       const link = intl.routed || language ? `/${languageLink}${to}` : `${to}`
-      console.log('---', languageLink, '+++', to)
+      console.log('---', link)
 
       const handleClick = e => {
         if (language) {

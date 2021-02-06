@@ -97,6 +97,7 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
   deletePage(page)
   createPage(newPage)
 
+  console.log('Translating ', page.path)
   if (dontTranslate.indexOf(page.path) === -1) {
     console.log('Skipping ', page.path)
     return

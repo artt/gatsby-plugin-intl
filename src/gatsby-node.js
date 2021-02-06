@@ -116,4 +116,3 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
     createPage(localePage)
   })
 }
-Save

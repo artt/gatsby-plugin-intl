@@ -71,10 +71,9 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
     }
   }
 
-  const generatePage = (routed, language, defaultOnly=false) => {
+  const generatePage = (routed, language) => {
     const messages = getMessages(path, language)
     const newPath = routed ? `/${language}${page.path}` : page.path
-    const pageLanguages = defaultOnly ? [defaultLanguage] : languages
     return {
       ...page,
       path: newPath,
@@ -83,7 +82,7 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
         language,
         intl: {
           language,
-          languages: pageLanguages,
+          languages,
           messages,
           routed,
           originalPath: page.path,
@@ -94,20 +93,13 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
     }
   }
 
-  console.log('> ', page.path)
-  if (dontTranslate.indexOf(page.path) > -1) {
-    const newPage = generatePage(false, defaultLanguage, true)
-    console.log('----- creating new single-language page', newPage)
-    deletePage(page)
-    createPage(newPage)
-    return
-  }
-  
-
-  const newPage = generatePage(false, defaultLanguage, false)
-  console.log('----- creating new bilingual page', newPage)
+  const newPage = generatePage(false, defaultLanguage)
   deletePage(page)
   createPage(newPage)
+
+  if (dontTranslate.indexOf(page.path) > -1) {
+    return
+  }
 
   languages.forEach(language => {
     if (!genDefaultLanguagePages && language === defaultLanguage)

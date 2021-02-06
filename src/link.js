@@ -12,10 +12,13 @@ const Link = ({ to, language, children, onClick, ...rest }) => (
       if (languageLink === intl.defaultLanguage)
         languageLink = ""
 
-      //const languageLink = language || intl.language
+      let link = to
+      if ((intl.routed || language) && languageLink) {
+        link = `/${languageLink}${to}` 
+      }
 
-      const link = intl.routed || language ? `/${languageLink}${to}` : `${to}`
-      console.log('---', link)
+      //const languageLink = language || intl.language
+      // const link = intl.routed || language ? `/${languageLink}${to}` : `${to}`
 
       const handleClick = e => {
         if (language) {

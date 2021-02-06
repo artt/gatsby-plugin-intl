@@ -6,6 +6,7 @@ import { IntlContextConsumer } from "./intl-context"
 const Link = ({ to, language, children, onClick, ...rest }) => (
   <IntlContextConsumer>
     {intl => {
+      console.log('---', intl)
       const languageLink = language || intl.language
       const link = intl.routed || language ? `/${languageLink}${to}` : `${to}`
 
@@ -79,7 +80,7 @@ export const changeLocale = (language, to) => {
   const link = `${language === defaultLanguage ? "" : `/${language}`}${pathname}${window.location.search}`
   // TODO: check slash
   // const link = `/${language}${pathname}${window.location.search}`
-  
+
   localStorage.setItem("gatsby-intl-language", language)
   gatsbyNavigate(link)
 }

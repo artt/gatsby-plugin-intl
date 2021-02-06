@@ -7,7 +7,14 @@ const Link = ({ to, language, children, onClick, ...rest }) => (
   <IntlContextConsumer>
     {intl => {
       console.log('---', intl)
-      const languageLink = language || intl.language
+      
+      // artt's edit
+      let languageLink = language || intl.language
+      if (languageLink === intl.defaultLanguage)
+        languageLink = ""
+
+      //const languageLink = language || intl.language
+
       const link = intl.routed || language ? `/${languageLink}${to}` : `${to}`
 
       const handleClick = e => {

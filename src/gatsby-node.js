@@ -83,7 +83,7 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
         language,
         intl: {
           language,
-          pageLanguages,
+          languages: pageLanguages,
           messages,
           routed,
           originalPath: page.path,

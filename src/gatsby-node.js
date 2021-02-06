@@ -40,7 +40,6 @@ exports.onCreateWebpackConfig = ({ actions, plugins }, pluginOptions) => {
 
 exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
   //Exit if the page has already been processed.
-  return
   if (typeof page.context.intl === "object") {
     return
   }
@@ -50,6 +49,7 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
     languages = ["en"],
     defaultLanguage = "en",
     redirect = false,
+    dontTranslate = [],
   } = pluginOptions
 
   const getMessages = (path, language) => {
@@ -97,6 +97,8 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
   createPage(newPage)
 
   languages.forEach(language => {
+    if (!genDefaultLanguagePages && language === defaultLanguage)
+      return
     const localePage = generatePage(true, language)
     const regexp = new RegExp("/404/?$")
     if (regexp.test(localePage.path)) {

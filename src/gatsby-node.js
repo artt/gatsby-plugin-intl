@@ -94,7 +94,7 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
     }
   }
 
-  if (dontTranslate.indexOf(page.path) > -1) {
+  if (page.context.monolanguage || dontTranslate.indexOf(page.path) > -1) {
     const newPage = generatePage(false, defaultLanguage, true)
     deletePage(page)
     createPage(newPage)

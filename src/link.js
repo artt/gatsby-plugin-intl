@@ -94,3 +94,13 @@ export const changeLocale = (language, to) => {
   localStorage.setItem("gatsby-intl-language", language)
   gatsbyNavigate(link)
 }
+
+
+export function useLang() {
+  const [lang, setLang] = React.useState(null)
+  React.useLayoutEffect(() => {
+    const intl = window.___gatsbyIntl
+    setLang(intl.language)
+  }, [])
+  return lang
+}

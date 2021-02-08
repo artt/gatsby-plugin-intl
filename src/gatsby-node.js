@@ -71,10 +71,10 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
     }
   }
 
-  const generatePage = (routed, language, defaultOnly=false) => {
+  const generatePage = (routed, language, availableLanguages) => {
     const messages = getMessages(path, language)
     const newPath = routed ? `/${language}${page.path}` : page.path
-    const pageLanguages = defaultOnly ? [defaultLanguage] : languages
+    const pageLanguages = availableLanguages ? availableLanguages : languages
     return {
       ...page,
       path: newPath,
@@ -94,8 +94,15 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
     }
   }
 
-  if (page.context.monolanguage || dontTranslate.indexOf(page.path) > -1) {
-    const newPage = generatePage(false, defaultLanguage, true)
+  if (dontTranslate.indexOf(page.path) > -1) {
+    const newPage = generatePage(false, defaultLanguage, [defaultLanguage])
+    deletePage(page)
+    createPage(newPage)
+    return
+  }
+
+  if (page.context.availableLanguages) {
+    const newPage = generatePage(false, page.context.lang, page.context.availableLanguages)
     deletePage(page)
     createPage(newPage)
     return

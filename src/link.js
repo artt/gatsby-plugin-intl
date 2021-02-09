@@ -14,8 +14,14 @@ const Link = ({ to, language, children, onClick, ...rest }) => (
 
       let link = to
       if ((intl.routed || language) && languageLink) {
+        console.log("xxxx")
         link = `/${languageLink}${to}` 
       }
+
+      console.log('language', language)
+      console.log('intl.language', intl.language)
+      console.log('languageLink', languageLink)
+      console.log('link', link)
 
       //const languageLink = language || intl.language
       // const link = intl.routed || language ? `/${languageLink}${to}` : `${to}`
@@ -98,7 +104,7 @@ export const changeLocale = (language, to) => {
 
 export function useLang() {
   const [lang, setLang] = React.useState(null)
-  React.useLayoutEffect(() => {
+  React.useEffect(() => {
     const intl = window.___gatsbyIntl
     setLang(intl.language)
   }, [])

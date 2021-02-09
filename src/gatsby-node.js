@@ -75,6 +75,7 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
     const messages = getMessages(path, language)
     const newPath = routed ? `/${language}${page.path}` : page.path
     const pageLanguages = availableLanguages ? availableLanguages : languages
+    const orgPath = page.context.originalPath || page.path
     return {
       ...page,
       path: newPath,
@@ -86,7 +87,7 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
           languages: pageLanguages,
           messages,
           routed,
-          originalPath: page.path,
+          originalPath: orgPath, //page.path,
           redirect,
           defaultLanguage,
         },

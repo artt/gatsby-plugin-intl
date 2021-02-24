@@ -110,14 +110,16 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
     return
   }
 
-  const newPage = generatePage(false, defaultLanguage, false)
+  const newPage = generatePage(false, defaultLanguage, page.context.availableLanguages)
+  // const newPage = generatePage(false, defaultLanguage, false)
   deletePage(page)
   createPage(newPage)
 
   languages.forEach(language => {
     if (!genDefaultLanguagePages && language === defaultLanguage)
       return
-    const localePage = generatePage(true, language)
+    const localePage = generatePage(true, language, page.context.availableLanguages)
+    // const localePage = generatePage(true, language)
     const regexp = new RegExp("/404/?$")
     if (regexp.test(localePage.path)) {
       localePage.matchPath = `/${language}/*`

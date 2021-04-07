@@ -77,14 +77,14 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
     const newPath = routed ? `/${language}${tmpPath}` : tmpPath
     const pageLanguages = availableLanguages ? availableLanguages : languages
     
-    // if (page.context.shorturl) {
-    //   createRedirect({
-    //     fromPath: routed ? `/${language}${page.context.shorturl}` : page.context.shorturl,
-    //     toPath: tmpPath,
-    //     isPermanent: true,
-    //   })
-    //   console.log(`Create redirect from ${routed ? `/${language}${page.context.shorturl}` : page.context.shorturl} to ${tmpPath}`)
-    // }
+    if (page.context.shorturl) {
+      createRedirect({
+        fromPath: routed ? `/${language}${page.context.shorturl}` : page.context.shorturl,
+        toPath: newPath,
+        isPermanent: true,
+      })
+      console.log(`Create redirect from ${routed ? `/${language}${page.context.shorturl}` : page.context.shorturl} to ${newPath}`)
+    }
 
     return {
       ...page,

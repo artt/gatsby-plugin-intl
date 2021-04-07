@@ -83,6 +83,7 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
         toPath: tmpPath,
         isPermanent: true,
       })
+      console.log(`Create redirect from ${routed ? `/${language}${page.context.shorturl}` : page.context.shorturl} to ${tmpPath}`)
     }
 
     return {

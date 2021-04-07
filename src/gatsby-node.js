@@ -43,7 +43,7 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
   if (typeof page.context.intl === "object") {
     return
   }
-  const { createPage, deletePage } = actions
+  const { createPage, deletePage, createRedirect } = actions
   const {
     path = ".",
     languages = ["en"],
@@ -76,6 +76,15 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
     const tmpPath = page.context.originalPath || page.path
     const newPath = routed ? `/${language}${tmpPath}` : tmpPath
     const pageLanguages = availableLanguages ? availableLanguages : languages
+    
+    if (page.context.shorturl) {
+      createRedirect({
+        fromPath: routed ? `/${language}${page.context.shorturl}` : page.context.shorturl,
+        toPath: tmpPath,
+        isPermanent: true,
+      })
+    }
+
     return {
       ...page,
       path: newPath,

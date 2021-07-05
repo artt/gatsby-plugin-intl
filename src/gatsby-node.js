@@ -77,7 +77,7 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
     const newPath = routed ? `/${language}${tmpPath}` : tmpPath
     const pageLanguages = availableLanguages ? availableLanguages : languages
     
-    if (page.context.shorturl) {
+    if (process.env.NODE_ENV === "production" && page.context.shorturl) {
       createRedirect({
         fromPath: routed ? `/${language}${page.context.shorturl}` : page.context.shorturl,
         toPath: newPath,

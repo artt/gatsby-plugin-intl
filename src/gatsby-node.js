@@ -112,28 +112,28 @@ exports.onCreatePage = async ({ page, actions }, pluginOptions) => {
     return
   }
 
-  // if (page.context.lang || (page.context.availableLanguages && page.context.availableLanguages.length === 1)) {
-  if (page.context.lang) {
-    const newPage = generatePage(page.context.lang !== defaultLanguage, page.context.lang, page.context.availableLanguages)
-    deletePage(page)
-    createPage(newPage)
-    return
-  }
+  // // if (page.context.lang || (page.context.availableLanguages && page.context.availableLanguages.length === 1)) {
+  // if (page.context.lang) {
+  //   const newPage = generatePage(page.context.lang !== defaultLanguage, page.context.lang, page.context.availableLanguages)
+  //   deletePage(page)
+  //   createPage(newPage)
+  //   return
+  // }
 
-  const newPage = generatePage(false, defaultLanguage, page.context.availableLanguages)
-  // const newPage = generatePage(false, defaultLanguage, false)
-  deletePage(page)
-  createPage(newPage)
+  // const newPage = generatePage(false, defaultLanguage, page.context.availableLanguages)
+  // // const newPage = generatePage(false, defaultLanguage, false)
+  // deletePage(page)
+  // createPage(newPage)
 
-  languages.forEach(language => {
-    if (!genDefaultLanguagePages && language === defaultLanguage)
-      return
-    const localePage = generatePage(true, language, page.context.availableLanguages)
-    // const localePage = generatePage(true, language)
-    const regexp = new RegExp("/404/?$")
-    if (regexp.test(localePage.path)) {
-      localePage.matchPath = `/${language}/*`
-    }
-    createPage(localePage)
-  })
+  // languages.forEach(language => {
+  //   if (!genDefaultLanguagePages && language === defaultLanguage)
+  //     return
+  //   const localePage = generatePage(true, language, page.context.availableLanguages)
+  //   // const localePage = generatePage(true, language)
+  //   const regexp = new RegExp("/404/?$")
+  //   if (regexp.test(localePage.path)) {
+  //     localePage.matchPath = `/${language}/*`
+  //   }
+  //   createPage(localePage)
+  // })
 }
